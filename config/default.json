@@ -1,0 +1,4 @@
+{
+    "mongoURI": "mongodb+srv://dasun123:finalexam123@cluster0-cd3zf.mongodb.net/exam?retryWrites=true&w=majority",
+    "jwtSecret": "myJWTSecret"
+}
