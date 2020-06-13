@@ -24,12 +24,20 @@ router.post(
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-        const { name, description, tags, slang, featuredImage } = req.body;
+        const {
+            name,
+            description,
+            price,
+            tags,
+            slang,
+            featuredImage
+        } = req.body;
 
         const courseInfo = {};
         courseInfo.user = req.user.id;
         if (name) courseInfo.name = name;
         if (description) courseInfo.description = description;
+        if (price) courseInfo.price = price;
         if (slang) courseInfo.slang = slang;
         if (featuredImage) courseInfo.featuredImage = featuredImage;
         if (tags) {
@@ -72,7 +80,7 @@ router.get('/', async (req, res) => {
 });
 
 //@desc  get course by slang
-//@route api/courses/:slang (GET)
+//@route api/courses/course/:slang (GET)
 router.get('/course/:slang', async (req, res) => {
     try {
         const course = await Course.findOne({
@@ -91,4 +99,16 @@ router.get('/course/:slang', async (req, res) => {
     }
 });
 
+//@desc  Delete course by id
+//@route api/courses/:id (DELETE)
+router.delete('/:id', auth, async (req, res) => {
+    try {
+        //delete a course
+        await Course.findByIdAndRemove({ _id: req.params.id });
+        res.json({ msg: 'Course deleted' });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server error');
+    }
+});
 module.exports = router;

@@ -13,6 +13,10 @@ const CoursesSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    price: {
+        type: Number,
+        required: true
+    },
     slang: {
         type: String,
         required: true,
